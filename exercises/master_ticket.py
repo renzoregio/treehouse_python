@@ -1,8 +1,12 @@
 
 def main():
     TICKET_PRICE = 10
+    SERVICE_CHARGE = 2
     tickets_remaining = 100
     
+    def calculate_price(num_tickets):
+        return (num_tickets * TICKET_PRICE) + SERVICE_CHARGE
+
     try:
         while tickets_remaining:
             # output how many tickets are remaining using the tickets_remaining variable
@@ -14,7 +18,7 @@ def main():
             if num_tickets > tickets_remaining:
                 raise ValueError("We only have {} tickets in our inventory... Try again!".format(tickets_remaining))
             # calculate the price (number of tickets multiplied by the price) and assign it to a variable
-            amount_due = num_tickets * TICKET_PRICE
+            amount_due = calculate_price(num_tickets)
             # output the price to the screen
             print("For {} tickets, it will be ${}".format(num_tickets, amount_due))
             # prompt user if they want to proceed
@@ -29,12 +33,14 @@ def main():
             elif proceed.lower() == "no":
                 print("Thank you anyway, {}! If you reconsider, we'll be here!".format(name))
             else:
-                pass
-                # do something
+                raise ValueError("Please enter either YES or NO.")
         if tickets_remaining == 0:
             print("We are SOLD OUT!")
     except ValueError as err:
-        print("({})".format(err))
+        print("Oops! We ran into an issue: ({})".format(err))
+
+
+
 
 if __name__ == "__main__":
     main()
